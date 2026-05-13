@@ -6,3 +6,20 @@ services:
     restart: always
     ports:
       - "5001:5001"
+    environment:
+      DatabaseSettings__ConnectionString: "mongodb://gbs:geheim@mongodb:27017"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: gbs
+      MONGO_INITDB_ROOT_PASSWORD: geheim
+
+volumes:
+  mongo-data:
